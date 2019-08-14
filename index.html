@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>STEEM SCOT Voting Power</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css"
+    />
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-141183390-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-141183390-1");
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sscjs@latest/dist/ssc.min.js"></script>
+    <script src="main.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h3>STEEM SCOT Voting Power</h3>
+      <h4 id="username">voting power</h4>
+      <div class="progress">
+        <div
+          id="steem_vp"
+          class="progress-bar progress-bar-success progress-bar-striped"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width:0%"
+        >
+          Loading
+        </div>
+      </div>
+      <div id="scot_vp_info" class="progress">
+        <div
+          id="scot_vp"
+          class="progress-bar progress-bar-info progress-bar-striped"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width:0%"
+        >
+          Loading
+        </div>
+      </div>
+      <div id="se_info">
+        <div style="text-align:right">
+          <span>Staked: </span>
+          <span id="scot_staked"></span>
+        </div>
+        <div style="text-align:right">
+          <span><a href="#" id="scot_stake_link">Balance</a>: </span>
+          <span id="scot_unstaked"></span>
+        </div>
+        <div style="text-align:right">
+          <span>Unstaking: </span>
+          <span id="scot_pending_unstaked"></span>
+        </div>
+      </div>
+      <div id="scot_info">
+        <div style="text-align:right">
+          <span><a href="#" id="scot_claim_link">Claimable</a>: </span>
+          <span id="scot_pending_claim"></span>
+        </div>
+      </div>
+      <div id="total_info" style="text-align:right"></div>
+      <br />
+      <div id="est_steem" style="text-align:right"></div>
+      <div id="est_usd" style="text-align:right"></div>
+      <div id="scot_price" style="text-align:right"></div>
+      <div id="steem_price" style="text-align:right"></div>
+      <div id="se_warning" style="text-align:right"></div>
+      <div id="scot_warning" style="text-align:right"></div>
+      <br />
+      <div id="vote_multiplier_info" style="text-align:right">
+        <span
+          ><a href="#" id="scot_vote_multiplier_link">Vote weight multiplier</a
+          >:
+        </span>
+        <span id="scot_vote_multiplier"></span>
+      </div>
+      <br />
+      <div style="text-align:right">
+        Powered by
+        <a href="https://steemit.com/@blockchainstudio">@blockchainstudio</a>
+      </div>
+      <br />
+      <div id="donate" style="text-align:right">
+        <span>Donate </span>
+        <span><a href="#" id="donate_link_steem">STEEM</a> | </span>
+        <span><a href="#" id="donate_link_sbd">SBD</a> | </span>
+        <span><a href="#" id="donate_link_steemp">STEEMP</a> | </span>
+        <span><a href="#" id="donate_link_scot">SCOT</a></span>
+      </div>
+      <br />
+      <div>
+        Usage: https://economicstudio.github.io/vp/?a=blockchainstudio&t=SPT
+        <br />
+        - a: account, t: token
+      </div>
+      <br />
+      <div>
+        <b>Getting tired of claiming all different tokens?</b> I made
+        <b>scotauto</b>
+        for automatic claim.<br />
+        Visit
+        <a href="https://economicstudio.github.io/scotauto"
+          >https://economicstudio.github.io/scotauto</a
+        >
+        for details.
+      </div>
+      <br />
+      <div>
+        * Any balance change may take up to 30 seconds due to Steem Engine API's
+        delay. Any incorrect values are most likely due to Steem Engine API.
+      </div>
+    </div>
+
+    <!-- vote multiplier dialog-->
+    <div id="dialog_vote_multiplier" title="Change vote weight multiplier">
+      <div>
+        <input type="text" id="d_multiplier_new" value="" /><span>
+          X (current:</span
+        >
+        <span id="d_multiplier_current"></span><span> X)</span>
+      </div>
+      <br />
+      <div>
+        You may usually want a multiplier > 1.
+      </div>
+      <br />
+      <div>
+        For instance, if only 1/3 of posts you vote is using this SCOT, you may
+        want to set the multiplier to 3.
+      </div>
+    </div>
+
+    <!-- staking dialog-->
+    <div id="dialog_stake" title="Stake">
+      <div>
+        <input type="text" id="d_stake_amount" value="" /><span> / </span
+        ><span id="d_stake_balance"></span> <span id="d_stake_asset"></span>
+      </div>
+    </div>
+
+    <!-- warning dialog-->
+    <div id="dialog_warning" title="Warning"></div>
+
+    <!-- donation dialog-->
+    <div id="dialog_donate" title="Thanks for your donation!">
+      <div>
+        <input type="text" id="d_donate_amount" value="" /><span> / </span
+        ><span id="d_donate_balance"></span> <span id="d_donate_asset"></span>
+      </div>
+      <br />
+      <div>
+        Memo (optional) <input type="text" id="d_donate_memo" value="" />
+      </div>
+    </div>
+  </body>
+</html>
