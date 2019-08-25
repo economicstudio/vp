@@ -85,9 +85,15 @@
         </div>
       </div>
       <div id="total_info" style="text-align:right"></div>
-      <br />
       <div id="est_steem" style="text-align:right"></div>
-      <div id="est_usd" style="text-align:right"></div>
+      <br />
+      <div id="steemfinex_link" style="text-align:right">Low to Zero fee STEEM/STEEMP Exchange <a href="https://steemfinex.com">@steemfinex</a></div>
+      <div id="steemfinex_balances" style="text-align:right">
+        <span>Click to exchange: </span>
+        <a href="#" id="exchange_steem_link"><span id="steem_account"></span></a> STEEM | 
+        <a href="#" id="exchange_steemp_link"><span id="steemp_account"></span></a> STEEMP
+      </div>
+      <br />
       <div id="scot_price" style="text-align:right"></div>
       <div id="steem_price" style="text-align:right"></div>
       <div id="se_warning" style="text-align:right"></div>
@@ -101,10 +107,10 @@
         <span id="scot_vote_multiplier"></span>
       </div>
       <br />
-      <div style="text-align:right">
+      <!--<div style="text-align:right">
         <b>Low to Zero fee STEEM/STEEMP Exchange</b> <a href="https://steemfinex.com">steemfinex.com</a>
       </div>
-      <br />
+      <br />-->
       <div style="text-align:right">
         Powered by
         <a href="https://steemit.com/@blockchainstudio">@blockchainstudio</a> | <a href="https://steemfinex.com">steemfinex.com</a>
@@ -118,7 +124,7 @@
       </div>
       <br />
       <div>
-        <b>@steemfinex - low & zero fee (at most 0.25% and can even be zero!)</b> STEEM/STEEMP Exchange that I made!<br />
+        <b>@steemfinex - Low and Zero fee (at most 0.25% and can even be zero!)</b> STEEM/STEEMP Exchange that I made!
         The longer you wait, the lower fee you get. It can even be zero! Using @steemfinex can support my free services such as @scotview, @scotauto, and so on.
         <br />
         Visit
@@ -172,6 +178,22 @@
       </div>
     </div>
 
+    <!-- exchange dialog-->
+    <div id="dialog_exchange" title="Exchange">
+      <div>
+        <input type="text" id="d_amount" value="" /><span> / </span
+        ><span id="d_balance"></span> <span id="d_asset"></span>
+      </div>
+      <br />
+      <div>
+          Memo (optional) waiting time in hours<br />
+          <input type="text" id="d_memo" value="" /><br />
+          - default: 5 minutes. max: 1 week (168 hours)<br />
+          Enter number only<br />
+          - e.g., "10" : 10 hours, "0.5": 30 minutes<br />
+      </div>
+    </div>
+    
     <!-- staking dialog-->
     <div id="dialog_stake" title="Stake">
       <div>
