@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>STEEM SCOT Voting Power</title>
+    <title>Steem scotview</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -38,8 +38,9 @@
 
   <body>
     <div class="container">
-      <h3>STEEM SCOT Voting Power</h3>
-      <h4 id="username">voting power</h4>
+      <br />
+      <h3 style="display:inline;">Steem scotview</h3><h5 style="display:inline;"> by @blockchainstudio</h5>
+      <h4 id="username">blockchainstudio</h4>
       <div class="progress">
         <div
           id="steem_vp"
@@ -52,18 +53,7 @@
           Loading
         </div>
       </div>
-      <div id="scot_vp_info" class="progress">
-        <div
-          id="scot_vp"
-          class="progress-bar progress-bar-info progress-bar-striped"
-          role="progressbar"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style="width:0%"
-        >
-          Loading
-        </div>
-      </div>
+      <p id="scot_vp"></p>
       <div id="se_info">
         <div style="text-align:right">
           <span>Staked: </span>
@@ -118,9 +108,10 @@
       </div>
       <br />
       <div>
-        Usage: https://economicstudio.github.io/vp/?a=blockchainstudio&t=FINEX
+        <b>Now support multiple tokens!</b><br />
+        Usage: https://economicstudio.github.io/vp/?a=blockchainstudio&t=FINEX,PAL,SPT,LIV
         <br />
-        - a: account, t: token (FINEX is a steem-engine token that I issued. It has no value. Buying it means donation.)
+        - a: account, t: token(s) (FINEX is a steem-engine token that I issued. It has no value. Buying it means donation.)
       </div>
       <br />
       <div>
